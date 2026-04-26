@@ -3,7 +3,7 @@ import { useAuthStore } from '../store/useAuthStore';
 
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'https://clinic-management-system-backend-main-9slmei.free.laravel.cloud/api',
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',

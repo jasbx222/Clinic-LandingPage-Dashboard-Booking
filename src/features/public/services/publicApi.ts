@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const publicApi = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000/api",
+  baseURL: import.meta.env.VITE_API_URL || "https://clinic-management-system-backend-main-9slmei.free.laravel.cloud/api",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
