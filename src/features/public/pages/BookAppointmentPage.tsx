@@ -25,9 +25,10 @@ const STEPS = [
   { id: 5, title: 'التأكيد' },
 ];
 
-const patientSchema = z.object({
+const   patientSchema = z.object({
   full_name: z.string().min(3, "الاسم يجب أن يكون 3 أحرف على الأقل"),
   phone: z.string().min(10, "رقم الهاتف غير صحيح"),
+  email: z.string().email("البريد الإلكتروني غير صحيح"),
   gender: z.enum(['male', 'female']),
   birth_date: z.string().min(1, "تاريخ الميلاد مطلوب"),
   visit_reason: z.string().min(5, "يرجى كتابة سبب الزيارة"),
@@ -101,7 +102,8 @@ export default function BookAppointmentPage() {
           gender: data.gender,
           birth_date: data.birth_date,
           reason: data.visit_reason,
-          notes: data.notes
+          notes: data.notes,
+          email: data.email,
         }
       });
     }
@@ -261,6 +263,13 @@ export default function BookAppointmentPage() {
               control={control}
               render={({ field }) => (
                 <Textarea label="ملاحظات إضافية (اختياري)" placeholder="أي ملاحظات أخرى..." {...field} />
+              )}
+            />
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <Input label="البريد الإلكتروني" placeholder="أدخل بريدك الإلكتروني" error={errors.email?.message} {...field} />
               )}
             />
           </div>

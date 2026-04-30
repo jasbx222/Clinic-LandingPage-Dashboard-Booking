@@ -17,6 +17,9 @@ import InvoicesPage from '../pages/dashboard/InvoicesPage';
 import EmployeesPage from '../pages/dashboard/EmployeesPage';
 import AppointmentBoard from '../pages/dashboard/AppointmentBoard';
 import VisitsPage from '../pages/dashboard/VisitsPage';
+import QueueDashboardPage from '../pages/dashboard/QueueDashboardPage';
+import PublicCheckinPage from '../features/public/pages/PublicCheckinPage';
+import WaitingScreenPage from '../features/public/pages/WaitingScreenPage';
 import { useAuthStore } from '../store/useAuthStore';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -48,6 +51,8 @@ export default function AppRoutes() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/book-appointment" element={<BookAppointmentPage />} />
         <Route path="/appointment-success" element={<AppointmentSuccessPage />} />
+        <Route path="/checkin/:token" element={<PublicCheckinPage />} />
+        <Route path="/waiting-screen" element={<WaitingScreenPage />} />
       </Route>
 
       {/* Auth */}
@@ -61,6 +66,7 @@ export default function AppRoutes() {
         <Route path="doctors" element={<EmployeesPage />} />
         <Route path="appointments" element={<AppointmentsPage />} />
         <Route path="appointment-board" element={<AppointmentBoard />} />
+        <Route path="queue" element={<QueueDashboardPage />} />
         <Route path="invoices" element={<InvoicesPage />} />
         <Route path="visits" element={<VisitsPage />} />
         <Route path="staff" element={<EmployeesPage />} />
@@ -72,6 +78,7 @@ export default function AppRoutes() {
         <Route path="dashboard" element={<OverviewPage />} />
         <Route path="appointments" element={<AppointmentsPage />} />
         <Route path="appointment-board" element={<AppointmentBoard />} />
+        <Route path="queue" element={<QueueDashboardPage />} />
         <Route path="consultations" element={<VisitsPage />} />
         <Route path="visits/:id?" element={<ConsultationScreen />} />
       </Route>
@@ -82,6 +89,7 @@ export default function AppRoutes() {
         <Route path="dashboard" element={<OverviewPage />} />
         <Route path="appointments" element={<AppointmentsPage />} />
         <Route path="appointment-board" element={<AppointmentBoard />} />
+        <Route path="queue" element={<QueueDashboardPage />} />
         <Route path="patients" element={<PatientsPage />} />
         <Route path="invoices" element={<InvoicesPage />} />
       </Route>

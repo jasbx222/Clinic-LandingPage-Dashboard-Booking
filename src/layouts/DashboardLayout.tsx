@@ -1,9 +1,9 @@
 import React from 'react';
 import { Outlet, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
-import { 
-  LayoutDashboard, Users, Calendar, FileText, LogOut, Menu, Pill, 
-  ShieldCheck, Stethoscope, Kanban, Settings, Bell, Search, ChevronRight 
+import {
+  LayoutDashboard, Users, Calendar, FileText, LogOut, Menu, Pill,
+  ShieldCheck, Stethoscope, Kanban, Settings, Bell, Search, ChevronRight, Monitor
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -18,7 +18,8 @@ export default function DashboardLayout() {
   const adminLinks = [
     { text: 'الرئيسية', icon: <LayoutDashboard size={22} />, path: '/admin/dashboard' },
     { text: 'المواعيد (الحجز)', icon: <Calendar size={22} />, path: '/admin/appointments' },
-    { text: 'لوحة الحجوزات', icon: <Kanban size={22} />, path: '/admin/appointment-board' },
+  
+    { text: 'طابور الانتظار', icon: <Monitor size={22} />, path: '/admin/queue' },
     { text: 'المرضى (الملفات)', icon: <Users size={22} />, path: '/admin/patients' },
     { text: 'الكشوفات الطبية', icon: <Stethoscope size={22} />, path: '/admin/visits' },
     { text: 'الفواتير والمدفوعات', icon: <FileText size={22} />, path: '/admin/invoices' },
@@ -28,7 +29,8 @@ export default function DashboardLayout() {
   const doctorLinks = [
     { text: 'الرئيسية', icon: <LayoutDashboard size={22} />, path: '/doctor/dashboard' },
     { text: 'المواعيد', icon: <Calendar size={22} />, path: '/doctor/appointments' },
-    { text: 'لوحة الحجوزات', icon: <Kanban size={22} />, path: '/doctor/appointment-board' },
+    
+    { text: 'طابور الانتظار', icon: <Monitor size={22} />, path: '/doctor/queue' },
     { text: 'الكشوفات الطبية', icon: <Stethoscope size={22} />, path: '/doctor/consultations' },
     { text: 'الوصفات الطبية', icon: <Pill size={22} />, path: '/doctor/prescriptions' },
   ];
@@ -36,7 +38,7 @@ export default function DashboardLayout() {
   const receptionLinks = [
     { text: 'الرئيسية', icon: <LayoutDashboard size={22} />, path: '/reception/dashboard' },
     { text: 'المواعيد (الحجز)', icon: <Calendar size={22} />, path: '/reception/appointments' },
-    { text: 'لوحة الحجوزات', icon: <Kanban size={22} />, path: '/reception/appointment-board' },
+   
     { text: 'المرضى (الملفات)', icon: <Users size={22} />, path: '/reception/patients' },
     { text: 'الفواتير والمدفوعات', icon: <FileText size={22} />, path: '/reception/invoices' },
   ];
@@ -61,7 +63,7 @@ export default function DashboardLayout() {
           <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest -mt-1">Medical SaaS</p>
         </div>
       </div>
-      
+
       <div className="flex-grow overflow-y-auto px-4 space-y-1.5 custom-scrollbar">
         <div className="mb-6 px-4 py-5 bg-bg-soft rounded-[2rem] border border-primary/5 flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-primary shadow-soft font-bold text-xl">
@@ -81,11 +83,10 @@ export default function DashboardLayout() {
             <button
               key={link.path}
               onClick={() => { navigate(link.path); setMobileOpen(false); }}
-              className={`w-full flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300 font-bold group ${
-                active 
-                ? 'bg-primary text-white shadow-soft scale-[1.02]' 
-                : 'text-text-secondary hover:bg-bg-soft hover:text-primary'
-              }`}
+              className={`w-full flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300 font-bold group ${active
+                  ? 'bg-primary text-white shadow-soft scale-[1.02]'
+                  : 'text-text-secondary hover:bg-bg-soft hover:text-primary'
+                }`}
             >
               <div className="flex items-center gap-4">
                 <span className={`${active ? 'text-white' : 'text-text-muted group-hover:text-primary'} transition-colors`}>
@@ -100,7 +101,7 @@ export default function DashboardLayout() {
       </div>
 
       <div className="p-6 border-t border-border mt-auto">
-        <button 
+        <button
           onClick={handleLogout}
           className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl text-red-500 font-black text-sm hover:bg-red-50 transition-all group"
         >
@@ -148,9 +149,9 @@ export default function DashboardLayout() {
 
           <div className="hidden lg:flex items-center bg-bg-soft rounded-2xl px-4 py-2.5 w-96 border border-border group focus-within:border-primary/50 transition-all">
             <Search size={18} className="text-text-muted group-focus-within:text-primary transition-colors" />
-            <input 
-              type="text" 
-              placeholder="ابحث عن مريضة، موعد، أو فاتورة..." 
+            <input
+              type="text"
+              placeholder="ابحث عن مريضة، موعد، أو فاتورة..."
               className="bg-transparent border-none focus:ring-0 text-sm font-bold w-full px-3 text-text-primary placeholder:text-text-muted"
             />
           </div>
@@ -160,11 +161,11 @@ export default function DashboardLayout() {
               <Bell size={22} />
               <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-primary border-2 border-white rounded-full"></span>
             </button>
-            
+
             <button className="w-12 h-12 rounded-2xl bg-bg-soft flex items-center justify-center text-text-secondary hover:text-primary lg:hidden" onClick={() => setMobileOpen(true)}>
               <Menu size={24} />
             </button>
-            
+
             <div className="hidden sm:flex items-center gap-4 pl-4 border-r border-border">
               <div className="text-left">
                 <p className="text-[11px] font-black text-text-muted uppercase tracking-wider mb-0.5">مرحباً بك</p>

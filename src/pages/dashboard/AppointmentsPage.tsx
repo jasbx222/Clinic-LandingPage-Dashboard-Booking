@@ -11,6 +11,7 @@ import { ErrorState } from '../../components/ui/ErrorState';
 import { toast } from 'react-hot-toast';
 import { Modal } from '../../components/ui/Modal';
 import { motion } from 'framer-motion';
+import AppointmentJourneySection from './components/AppointmentJourneySection';
 
 export default function AppointmentsPage() {
   const queryClient = useQueryClient();
@@ -43,6 +44,9 @@ export default function AppointmentsPage() {
       case 'completed': return <Badge variant="success" className="rounded-full px-4">مكتمل</Badge>;
       case 'cancelled': return <Badge variant="danger" className="rounded-full px-4">ملغي</Badge>;
       case 'arrived': return <Badge variant="accent" className="rounded-full px-4">وصل للمركز</Badge>;
+      case 'waiting': return <Badge variant="secondary" className="bg-yellow-50 text-yellow-600 rounded-full px-4">في الانتظار</Badge>;
+      case 'in_consultation': return <Badge variant="secondary" className="bg-purple-50 text-purple-600 rounded-full px-4">في الاستشارة</Badge>;
+      case 'no_show': return <Badge variant="secondary" className="bg-gray-100 text-gray-600 rounded-full px-4">لم يحضر</Badge>;
       default: return <Badge className="rounded-full px-4">{status}</Badge>;
     }
   };
@@ -75,6 +79,15 @@ export default function AppointmentsPage() {
         <div className="flex items-center gap-2">
           <User size={14} className="text-text-muted" />
           <span className="font-bold text-text-secondary text-xs">{row.doctor?.name || '---'}</span>
+        </div>
+      )
+    },
+    { 
+      header: 'الايميل', 
+      accessor: (row: any) => (
+        <div className="flex items-center gap-2">
+          <User size={14} className="text-text-muted" />
+          <span className="font-bold text-text-secondary text-xs">{row.patient?.user?.email || '---'}</span>
         </div>
       )
     },
@@ -176,6 +189,7 @@ export default function AppointmentsPage() {
                         <p className="text-sm font-black text-text-primary">{selectedAppointment.appointment_time}</p>
                      </div>
                   </div>
+           
                </div>
 
                <div className="p-6 bg-white rounded-3xl border border-border/60 shadow-sm space-y-4">
@@ -199,6 +213,11 @@ export default function AppointmentsPage() {
             <div className="p-6 bg-bg-soft rounded-3xl border border-border/40">
               <h4 className="text-xs font-black text-text-primary uppercase tracking-widest mb-3">سبب الزيارة / ملاحظات</h4>
               <p className="text-sm font-bold text-text-secondary leading-relaxed">{selectedAppointment.reason || 'لا توجد ملاحظات إضافية مسجلة لهذا الحجز.'}</p>
+            </div>
+
+            <div className="p-6 bg-white rounded-3xl border border-border/60 shadow-sm">
+              <h4 className="text-xs font-black text-text-primary uppercase tracking-widest mb-6">رحلة المريض</h4>
+              <AppointmentJourneySection appointmentId={selectedAppointment.id} />
             </div>
 
             <div className="flex flex-wrap gap-4 pt-4 border-t border-border">

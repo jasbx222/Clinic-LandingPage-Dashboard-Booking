@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const publicApi = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "https://clinic-management-system-backend-main-9slmei.free.laravel.cloud/api",
+  baseURL: "https://clinic-management-system-backend-main-9slmei.free.laravel.cloud/api",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -47,6 +47,7 @@ export interface CreateAppointmentPayload {
     birth_date?: string;
     reason?: string;
     notes?: string;
+    email?: string;
   };
 }
 
